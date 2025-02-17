@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গেম খেলুন</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        #message {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #gameFrame {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #copyright {
+            position: absolute;
+            bottom: 10px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">গেম খেলুন!<br>অনুগ্রহ করে আপনার ফোনটি ঘুরান (Rotate করুন)।</div>
+    <iframe id="gameFrame" src="https://html-classic.itch.zone/html/12822958/Hasina%20game%20export/index.html"></iframe>
+    <div id="copyright">© shakib2016</div>
+
+    <script>
+        function openFullscreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) { // Firefox
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) { // Chrome, Safari & Opera
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) { // IE/Edge
+                element.msRequestFullscreen();
+            }
+        }
+
+        function checkOrientation() {
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("message").style.display = "none";
+                let gameFrame = document.getElementById("gameFrame");
+                gameFrame.style.display = "block";
+
+                // ফুলস্ক্রিন চালু করা
+                openFullscreen(gameFrame);
+            } else {
+                document.getElementById("message").style.display = "flex";
+                document.getElementById("gameFrame").style.display = "none";
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // প্রথমবার চেক করা
+        checkOrientation();
+
+        // যখন স্ক্রিন রোটেট হবে, তখন চেক করবে
+        window.addEventListener("resize", checkOrientation);
+    </script>
+</body>
+</html>
